@@ -1,0 +1,28 @@
+1 - Instalar Docker Desktop e Extensão Docker do VScode
+2 - Criar conta e projeto no heroku
+3 - Alterar no program.cs, na funcao CreateHostBuilder:
+
+
+	string port = Environment.GetEnvironmentVariable("port");
+	webBuilder.UseStartup<Startup>()
+                        .UseUrls("http://*:" + port);
+
+4 - Escolher o método 'Container' pra deployment no heroku ainda 
+5 - Fazer o download da extensão Heroku CLI
+6 - Criar arquivos Dockerfile e o docker-compose.yml ( vou manda os arquivos ) 
+7 - Trocar o nome da dll para o do projeto nos arquivos docker
+8 - Subir o docker desktop
+
+( a partir daqui tudo no powershell do vscode )
+
+9 - Para criar a imagem da api 
+docker-compose.exe build
+
+10 - Para subir no heroku	
+heroku login 
+heroku container:login
+heroku container:push web -a nsf-lista-negra
+heroku container:release web -a nsf-lista-negra
+
+11 - Se quiser ver o log da api 
+heroku logs --tail -a nsf-lista-negra
