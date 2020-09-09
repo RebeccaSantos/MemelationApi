@@ -49,7 +49,7 @@ namespace backend.Database
                 tb.BtMaior = novaTb.BtMaior;
                 tb.DtInclusao = novaTb.DtInclusao;
                 tb.ImgMeme=novaTb.ImgMeme;
-                tb.QtdCurtidas=novaTb.QtdCurtidas;
+                
                 db.SaveChanges();
             }
 
@@ -61,6 +61,19 @@ namespace backend.Database
               atual.QtdCurtidas=atual.QtdCurtidas+1;
               db.SaveChanges();
               return atual;
+        }
+        public Models.TbComentario Comentario(Models.TbComentario tb)
+        {
+            db.Add(tb);
+            db.SaveChanges();
+
+            return tb;
+        }
+        public List<Models.TbMemelation> ConsultarTudo()
+        {
+            List<Models.TbMemelation> meme = db.TbMemelation.Include(x=>x.TbComentario).ToList();
+
+            return meme;
         }
         
     }

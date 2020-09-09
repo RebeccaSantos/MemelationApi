@@ -33,7 +33,7 @@ namespace backend.Models
         [Column("dt_inclusao", TypeName = "datetime")]
         public DateTime DtInclusao { get; set; }
         [Column("qtd_curtidas", TypeName = "int(11)")]
-        public int QtdCurtidas { get; set; }
+        public int? QtdCurtidas { get; set; }
 
         [InverseProperty("IdMemelationNavigation")]
         public virtual ICollection<TbComentario> TbComentario { get; set; }

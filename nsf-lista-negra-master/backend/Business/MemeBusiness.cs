@@ -45,5 +45,26 @@ namespace backend.Business
 
             return db.Alterar(id, novaTb);
         }
+            public Models.TbMemelation AtualizarCurtidas(int id)
+        {
+            if (id <= 0)
+                throw new Exception("ID inválido");
+
+            return db.AtualizarCurtidas(id);
+        }
+        public Models.TbComentario Comentar(Models.TbComentario tb)
+        {
+            if (tb.IdMemelation <= 0)
+                throw new Exception("Meme inválido");
+            if (string.IsNullOrEmpty(tb.DsComentario))
+                throw new Exception("Comentario é obrigatório.");
+            
+            return db.Comentario(tb);
+        }
+        public List<Models.TbMemelation> ConsultarTudo ()
+        {
+            return db.ConsultarTudo();
+        }
+        
     }
 }

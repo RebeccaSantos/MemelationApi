@@ -110,6 +110,60 @@ namespace backend.Controllers
                     new Models.Response.ErroResponse(400, ex.Message)
                 );
             }
-        }        
+        }
+        
+       [HttpPut("curtida/{id}")]
+        public ActionResult<Models.Response.MemeResponse> AtualizarCurtidas(int id)
+        {
+            try
+            {
+                return conversor.ParaResponse(business.AtualizarCurtidas(id));
+            }
+            catch (Exception ex)
+            {
+                
+                return BadRequest(new Models.Response.ErroResponse(400,ex.Message));
+            }
+        }
+        [HttpPost("comentar/")]
+        public ActionResult<Models.Response.ComentarioResponse> Comentar(Models.Request.ComentarioRequest tb)
+        {
+            try
+            {
+                Models.TbComentario a = conversor.ParaTabelaComentario(tb);
+
+                Models.Response.ComentarioResponse resp = conversor.ParaRespostaComentario(business.Comentar(a));
+                return resp;
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new Models.Response.ErroResponse(400, ex.Message)
+                );
+            }
+    
+        }  
+        [HttpGet("pegartudo/")]
+        public ActionResult<List<Models.Response.MemeResponse>> ConsultarTudot()
+        {
+            try
+            {
+                List<Models.TbMemelation> lista = business.ConsultarTudo();
+
+                if (lista.Count == 0)
+                    return NotFound();
+
+                return conversor.ParaCompletoListaResponse(lista);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new Models.Response.ErroResponse(400, ex.Message)
+                );
+            }
+    
+        }                    
     }
 }

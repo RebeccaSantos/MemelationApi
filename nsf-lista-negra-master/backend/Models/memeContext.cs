@@ -17,7 +17,6 @@ namespace backend.Models
 
         public virtual DbSet<TbComentario> TbComentario { get; set; }
         public virtual DbSet<TbMemelation> TbMemelation { get; set; }
-        public virtual DbSet<TbUsuario> TbUsuario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,9 +37,6 @@ namespace backend.Models
                 entity.HasIndex(e => e.IdMemelation)
                     .HasName("id_memelation");
 
-                entity.HasIndex(e => e.IdUsuario)
-                    .HasName("id_usuario");
-
                 entity.Property(e => e.DsComentario)
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
@@ -50,12 +46,6 @@ namespace backend.Models
                     .HasForeignKey(d => d.IdMemelation)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("tb_comentario_ibfk_1");
-
-                entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany(p => p.TbComentario)
-                    .HasForeignKey(d => d.IdUsuario)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("tb_comentario_ibfk_2");
             });
 
             modelBuilder.Entity<TbMemelation>(entity =>
@@ -78,20 +68,8 @@ namespace backend.Models
                 entity.Property(e => e.NmAutor)
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
-            });
 
-            modelBuilder.Entity<TbUsuario>(entity =>
-            {
-                entity.HasKey(e => e.IdUsuario)
-                    .HasName("PRIMARY");
-
-                entity.Property(e => e.DsSenha)
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
-
-                entity.Property(e => e.NmUsuario)
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
+                entity.Property(e => e.QtdCurtidas).HasDefaultValueSql("'0'");
             });
 
             OnModelCreatingPartial(modelBuilder);

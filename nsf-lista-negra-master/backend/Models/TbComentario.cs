@@ -15,14 +15,9 @@ namespace backend.Models
         public string DsComentario { get; set; }
         [Column("id_memelation", TypeName = "int(11)")]
         public int? IdMemelation { get; set; }
-        [Column("id_usuario", TypeName = "int(11)")]
-        public int? IdUsuario { get; set; }
 
         [ForeignKey(nameof(IdMemelation))]
         [InverseProperty(nameof(TbMemelation.TbComentario))]
         public virtual TbMemelation IdMemelationNavigation { get; set; }
-        [ForeignKey(nameof(IdUsuario))]
-        [InverseProperty(nameof(TbUsuario.TbComentario))]
-        public virtual TbUsuario IdUsuarioNavigation { get; set; }
     }
 }
